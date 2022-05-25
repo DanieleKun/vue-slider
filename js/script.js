@@ -43,6 +43,9 @@ const root = new Vue ({
             if(this.activeSlide < 0 ){
                 this.activeSlide = this.slides.length - 1;
             }
+        },
+        goToImg(idx){
+            this.activeSlide = idx;
         }
     }
     
