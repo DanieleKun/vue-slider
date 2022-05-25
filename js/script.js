@@ -1,7 +1,8 @@
-const root = new Vue ({
+const root = new Vue({
     el: "#app",
     data: {
         activeSlide: 0,
+        timer: 0,
         slides: [
             {
                 image: 'img/01.jpg',
@@ -31,22 +32,39 @@ const root = new Vue ({
         ]
     },
 
-    methods : {
-        nextSlide(){
+    methods: {
+        nextSlide() {
             this.activeSlide++;
-            if(this.activeSlide > this.slides.length - 1){
+            if (this.activeSlide > this.slides.length - 1) {
                 this.activeSlide = 0;
+                this.resetPlay();
             }
         },
-        prevSlide(){
+        prevSlide() {
             this.activeSlide--;
-            if(this.activeSlide < 0 ){
+            if (this.activeSlide < 0) {
                 this.activeSlide = this.slides.length - 1;
+                this.resetPlay();
             }
         },
-        goToImg(idx){
+        goToImg(idx) {
             this.activeSlide = idx;
+            this.resetPlay();
+        },
+
+
+
+        autoPlay() {
+            const play = this;
+            this.timer = setInterval(function () {
+                play.nextSlide();
+            }, 2000);
+        },
+
+        resetPlay: function () {
+            clearInterval(this.timer);
+            this.autoPlay();
         }
     }
-    
+
 });
